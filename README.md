@@ -10,6 +10,9 @@
 ```
 * `.devcontainer` created. It includes one json file which define docker compose. 
 
+### Decorators
+* Everything as `@` in nest is called decorator `@Get`, `@Controller` all imported from `nestjs/common` library
+* 
 
 ### Controller
 
@@ -24,7 +27,59 @@ nest g co
 ```javascript
 nest g co --no-spec
 ```
+
+## Routing
+* The string inside @controler defines which `url` correspond to this controller, for example below route is `baseurl/coffess` 
+```javascript
+//GET:  baseUrl/coffees
+@Controller('coffees')
+export class CoffeesController {}
+```
+* Define an action as decorator and dedicate one function to it like 
+```javascript
+@Controller('coffees')
+export class CoffeesController {
+    @Get() 
+    anyFunctionName() {
+        return 'this is first route'
+    }
+}
+```
+* To add nestet url as `GET:  baseUrl/coffees/flavors` need to add string flavor as `@Get('flavors)`
+* Dynamic route as `/coffees/32`
+
+```javascript
+@Get(':id') 
+anyName2(@Param() params) {
+    console.log(params) //{ id: '32' }
+    return `this is #${params} `
+}
+// or we can have 
+  @Get(':id') 
+    anyName2(@Param('id') id: string) {
+        return `this is ${id} `
+    }
+```
+#### Post
+* Import Post and Body decorators and use as 
+```javascript
+//POST: baseUrl/coffees
+
+    @Post() 
+     anyName3(@Body() body) {
+        return body;
+    }
+    // if you return `${body}` you receive [object object]
+```
 * 
+
+
+
+
+
+
+
+
 
 ### Github ssh
 
